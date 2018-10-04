@@ -2,6 +2,7 @@
 
 namespace PrepayMatch;
 
+use PrepayMatch\Components\Cronjob\Worker;
 use Shopware\Components\Plugin;
 use Shopware_Components_Cron_CronJob;
 
@@ -24,17 +25,24 @@ class PrepayMatch extends Plugin
         ];
     }
 
+    /**
+     * @param Shopware_Components_Cron_CronJob $job
+     *
+     * @return bool
+     */
     public function onCheckPrepayCronJob(Shopware_Components_Cron_CronJob $job)
     {
-        $this->getCronJobWorker()->match();
-        return true;
+        return $this->getCronJobWorker()->match();
     }
 
     /**
-     * @return Components\Cronjob\Worker
+     * @return Worker
      */
     private function getCronJobWorker()
     {
-        return $this->container->get('pm_service_plugin.worker');
+        /** @var Worker $worker */
+        $worker = $this->container->get('pm_service_plugin.worker');
+
+        return $worker;
     }
 }

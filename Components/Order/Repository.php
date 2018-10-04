@@ -5,37 +5,27 @@ namespace PrepayMatch\Components\Order;
 use DateTime;
 use Shopware\Bundle\AttributeBundle\Repository\SearchCriteria;
 use Shopware\Components\DependencyInjection\Container;
-use Shopware\Components\DependencyInjection\ContainerAwareInterface;
 use Shopware\Models\Order\Order;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * @author Pascal Krason <p.krason@padr.io>
  */
-final class Repository implements ContainerAwareInterface
+final class Repository
 {
-    /**
-     * @var ContainerInterface
-     */
-    private $container;
-
     /**
      * @var \Shopware\Models\Order\Repository
      */
     private $repository;
 
     /**
-     * {@inheritdoc}
+     * @var Container
      */
-    public function setContainer(Container $Container = null)
-    {
-        $this->container = $Container;
-    }
+    private $container;
 
     /*
      * @return \Shopware\Models\Order\Repository
      */
-    protected function getRepository()
+    private function getRepository()
     {
         if ($this->repository === null) {
             $this->repository = Shopware()->Models()->getRepository(Order::class);
@@ -44,54 +34,41 @@ final class Repository implements ContainerAwareInterface
         return $this->repository;
     }
 
+    /**
+     * @return Container
+     */
+    private function getContainer()
+    {
+        if(!$this->container) {
+            $this->container = Shopware()->Container();
+        }
+
+        return $this->container;
+    }
+
+    /**
+     * @param array $filter
+     * @param array $sort
+     * @param int   $offset
+     * @param int   $limit
+     *
+     * @return array[]
+     */
     public function getList($filter = [], $sort = [], $offset = 0, $limit = 30)
     {
         $sort = $this->resolveSortParameter($sort);
-
-        if ($this->container->getParameter('shopware.es.backend.enabled')) {
-            $repository = $this->container->get('shopware_attribute.order_repository');
+        if ($this->getContainer()->getParameter('shopware.es.backend.enabled')) {
+            $repository = $this->getContainer()->get('shopware_attribute.order_repository');
             $criteria = $this->createCriteria();
             $result = $repository->search($criteria);
 
-            $total = $result->getCount();
             $ids = array_column($result->getData(), 'id');
         } else {
             $searchResult = $this->getRepository()->search($offset, $limit, $filter, $sort);
-            $total = $searchResult['total'];
             $ids = array_column($searchResult['orders'], 'id');
         }
 
-        $orders = $this->getRepository()->getList($ids);
-        $documents = $this->getRepository()->getDocuments($ids);
-        $details = $this->getRepository()->getDetails($ids);
-        $payments = $this->getRepository()->getPayments($ids);
-
-        $orders = $this->assignAssociation($orders, $documents, 'documents');
-        $orders = $this->assignAssociation($orders, $details, 'details');
-        $orders = $this->assignAssociation($orders, $payments, 'paymentInstances');
-
-        $numbers = [];
-        foreach ($orders as $order) {
-            $temp = array_column($order['details'], 'articleNumber');
-            $numbers = array_merge($numbers, (array) $temp);
-        }
-
-        $result = [];
-        foreach ($ids as $id) {
-            if (!array_key_exists($id, $orders)) {
-                continue;
-            }
-
-            $order = $orders[$id];
-            $order['locale'] = $order['languageSubShop']['locale'];
-            $result[] = $order;
-        }
-
-        return [
-            'success' => true,
-            'data' => $result,
-            'total' => $total,
-        ];
+        return $this->getRepository()->getList($ids);
     }
 
     /**
@@ -187,19 +164,5 @@ final class Repository implements ContainerAwareInterface
 
         $criteria->conditions = $mapped;
         return $criteria;
-    }
-
-    private function assignAssociation(array $orders, $associations, $arrayKey)
-    {
-        foreach ($orders as &$order) {
-            $order[$arrayKey] = [];
-        }
-
-        foreach ($associations as $association) {
-            $id = $association['orderId'];
-            $orders[$id][$arrayKey][] = $association;
-        }
-
-        return $orders;
     }
 }
