@@ -3,7 +3,7 @@
     "description": "Matches prepay transactions against an API",
     "type": "shopware-plugin",
     "extra": {
-        "installer-name": "PadrioPrepayMatch"
+        "installer-name": "PrepayMatch"
     },
     "authors": [
         {
