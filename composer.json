@@ -1,0 +1,17 @@
+{
+    "name": "padrio/shopware-prepay-match",
+    "description": "Matches prepay transactions against an API",
+    "type": "shopware-plugin",
+    "extra": {
+        "installer-name": "PadrioPrepayMatch"
+    },
+    "authors": [
+        {
+            "name": "Pascal Krason",
+            "email": "p.krason@padr.io"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^6.3"
+    }
+}
