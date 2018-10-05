@@ -60,6 +60,26 @@ final class Config
      */
     public $fintsAccountToCheck;
 
+    /**
+     * @var array
+     */
+    public $paymentIdsToCheck = [];
+
+    /**
+     * @var array
+     */
+    public $statusIdsToCheck = [];
+
+    /**
+     * @var integer
+     */
+    public $statusOnMatch;
+
+    /**
+     * @var bool
+     */
+    public $sendMailOnMatch;
+
     public function __construct(
         $apiType,
         $prepayPaymentMethod,
@@ -70,7 +90,11 @@ final class Config
         $fintsBankCode,
         $fintsUsername,
         $fintsPin,
-        $fintsAccountToCheck
+        $fintsAccountToCheck,
+        $paymentIdsToCheck,
+        $statusIdsToCheck,
+        $statusOnMatch,
+        $sendMailOnMatch
     ) {
         $this->apiType = $apiType;
         $this->prepayPaymentMethod = $prepayPaymentMethod;
@@ -82,5 +106,9 @@ final class Config
         $this->fintsUsername = $fintsUsername;
         $this->fintsPin = $fintsPin;
         $this->fintsAccountToCheck = $fintsAccountToCheck;
+        $this->paymentIdsToCheck = $paymentIdsToCheck;
+        $this->statusIdsToCheck = $statusIdsToCheck;
+        $this->statusOnMatch = $statusOnMatch;
+        $this->sendMailOnMatch = $sendMailOnMatch;
     }
 }

@@ -30,7 +30,11 @@ final class Factory implements FactoryInterface
             $config->getByNamespace(self::NAMESPACE, 'fintsBankCode'),
             $config->getByNamespace(self::NAMESPACE, 'fintsUsername'),
             $config->getByNamespace(self::NAMESPACE, 'fintsPin'),
-            $config->getByNamespace(self::NAMESPACE, 'fintsAccountToCheck')
+            $config->getByNamespace(self::NAMESPACE, 'fintsAccountToCheck'),
+            $config->getByNamespace(self::NAMESPACE, 'paymentIdsToCheck'),
+            $config->getByNamespace(self::NAMESPACE, 'statusIdsToCheck'),
+            $config->getByNamespace(self::NAMESPACE, 'statusOnMatch'),
+            $config->getByNamespace(self::NAMESPACE, 'sendMailOnMatch')
         );
     }
 }

@@ -2,6 +2,11 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/shopware/5.3/engine/Shopware/Components/Plugin/schema/config.xsd">
     <elements>
+        <element type="button">
+            <name>spacer-general</name>
+            <label>Allgemeine Einstellungen</label>
+        </element>
+        
         <element type="select">
             <name>finTsApiType</name>
             <label lang="de">API Typ</label>
@@ -99,5 +104,52 @@
             <description lang="de">Viele Banken bieten mehrere Bankkonto unter einem Benutzer an. Spezifizieren Sie hier von welchem Konto die Transaktionen geprüft werden sollen.</description>
             <description lang="en">Many banks offer several bank accounts under one user. Specify the account from which the transactions are to be checked.</description>
         </element>
+
+        <element type="button">
+            <name>spacer-logic</name>
+            <label>Verhalten Konfigurieren</label>
+        </element>
+
+        <element type="combo">
+            <name>paymentIdsToCheck</name>
+            <label lang="de">Zu prüfende Zahlungsstati</label>
+            <label lang="en">Payment statuses to be checked</label>
+            <description lang="de">Markieren Sie die Zahlungsstati bei welchen für eine Bestellungen nach Zahlungen geprüft wird.</description>
+            <description lang="en">Select the payment statuses for which payments are checked for an order.</description>
+            <store>Shopware.apps.Base.store.PaymentStatus</store>
+            <options>
+                <multiSelect>true</multiSelect>
+            </options>
+        </element>
+        
+        <element type="combo">
+            <name>statusIdsToCheck</name>
+            <label lang="de">Zu prüfende Bestellstati</label>
+            <label lang="en">Order status to be checked</label>
+            <description lang="de">Markieren Sie die Stati bei welchen für eine Bestellung nach Zahlungen geprüft wird.</description>
+            <description lang="en">Select the statuses for which payments are checked for a purchase order.</description>
+            <store>Shopware.apps.Base.store.OrderStatus</store>
+            <options>
+                <multiSelect>true</multiSelect>
+            </options>
+        </element>
+
+        <element type="combo">
+            <name>statusOnMatch</name>
+            <label lang="de">Status nach erfolgreicher Prüfung</label>
+            <label lang="en">Status after successful check</label>
+            <description lang="de">Status auf welchen die Bestellung gesetzt wird, nachdem eine Zahlung erkannt wurde.</description>
+            <description lang="en">Status on which the order is set after a payment has been recognized.</description>
+            <store>Shopware.apps.Base.store.PaymentStatus</store>
+        </element>
+
+        <element type="boolean">
+            <name>sendMailOnMatch</name>
+            <label lang="de">E-Mail nach Match verschicken</label>
+            <label lang="en">Send E-Mail on match</label>
+            <description lang="de">Versendet eine E-Mail mit Details zu den gefundenen Zahlungen an den Shopbetreiber.</description>
+            <description lang="en">Sends an e-mail with details of the payments found to the shop operator.</description>
+        </element>
+
     </elements>
 </config>
