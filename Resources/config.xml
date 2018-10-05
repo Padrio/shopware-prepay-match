@@ -26,18 +26,6 @@
                 </option>
             </store>
         </element>
-        
-        <element type="combo">
-            <name>prepayPaymentMethods</name>
-            <label lang="de">Zu prüfende Zahlungsarten</label>
-            <label lang="en">Payment types to be checked</label>
-            <description lang="de">Wählen Sie die Zahlungsarten aus bei welchen die Zahlugen geprüft werden sollen.</description>
-            <description lang="en">Select the payment methods for which you want to check the payments.</description>
-            <store>Shopware.apps.Base.store.Payment</store>
-            <options>
-                <multiSelect>true</multiSelect>
-            </options>
-        </element>
 
         <element type="button">
             <name>spacer-proxy</name>
@@ -114,6 +102,18 @@
         </element>
 
         <element type="combo">
+            <name>prepayPaymentMethods</name>
+            <label lang="de">Zu prüfende Zahlungsarten</label>
+            <label lang="en">Payment types to be checked</label>
+            <description lang="de">Wählen Sie die Zahlungsarten aus bei welchen die Zahlugen geprüft werden sollen.</description>
+            <description lang="en">Select the payment methods for which you want to check the payments.</description>
+            <store>Shopware.apps.Base.store.Payment</store>
+            <options>
+                <multiSelect>true</multiSelect>
+            </options>
+        </element>
+
+        <element type="combo">
             <name>paymentIdsToCheck</name>
             <label lang="de">Zu prüfende Zahlungsstati</label>
             <label lang="en">Payment statuses to be checked</label>
@@ -124,7 +124,7 @@
                 <multiSelect>true</multiSelect>
             </options>
         </element>
-        
+
         <element type="combo">
             <name>statusIdsToCheck</name>
             <label lang="de">Zu prüfende Bestellstati</label>
