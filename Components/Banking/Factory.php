@@ -11,23 +11,30 @@ use PrepayMatch\Components\DI\FactoryInterface;
  */
 final class Factory implements FactoryInterface
 {
+    private static $adapterTypeMapping = [
+        Config::TYPE_LOCAL => 'pm_service_plugin.banking.adapter_fints',
+        Config::TYPE_REMOTE => 'pm_service_plugin.banking.adapter_proxy',
+    ];
+
     /**
      * @return AdapterInterface
      */
     public static function create()
     {
+        $config = self::getConfig();
         $container = Shopware()->Container();
-
-        /** @var Config $config */
-        $config = $container->get('pm_service_plugin.config');
-        if($config->apiType === Config::TYPE_REMOTE) {
-            return $container->get('pm_service_plugin.banking.adapter_proxy');
-        }
-
-        if($config->apiType === Config::TYPE_LOCAL) {
-            return $container->get('pm_service_plugin.banking.adapter_fints');
+        if(isset(self::$adapterTypeMapping[$config->apiType])) {
+            return $container->get(self::$adapterTypeMapping[$config->apiType]);
         }
 
         throw new InvalidArgumentException('Unknown $type when creating adapter-instance: '. $config->apiType);
+    }
+
+    /**
+     * @return Config
+     */
+    private static function getConfig()
+    {
+        return Shopware()->Container()->get('pm_service_plugin.config');
     }
 }
