@@ -3,46 +3,31 @@
 namespace PrepayMatch\Components\Banking;
 
 use InvalidArgumentException;
-use PrepayMatch\Components\Config\ConfigProviderTrait;
 use PrepayMatch\Components\Config;
+use PrepayMatch\Components\DI\FactoryInterface;
 
 /**
  * @author Pascal Krason <p.krason@padr.io>
  */
-final class Factory
+final class Factory implements FactoryInterface
 {
-    use ConfigProviderTrait;
-
     /**
-     * @param string $type
      * @return AdapterInterface
      */
-    public function __invoke($type)
+    public static function create()
     {
-        if($type === Config::TYPE_REMOTE) {
-            return $this->createProxyAdapter();
+        $container = Shopware()->Container();
+
+        /** @var Config $config */
+        $config = $container->get('pm_service_plugin.config');
+        if($config->apiType === Config::TYPE_REMOTE) {
+            return $container->get('pm_service_plugin.banking.adapter_proxy');
         }
 
-        if($type === Config::TYPE_LOCAL) {
-            return $this->createFinTsAdapter();
+        if($config->apiType === Config::TYPE_LOCAL) {
+            return $container->get('pm_service_plugin.banking.adapter_fints');
         }
 
-        throw new InvalidArgumentException('Unknown $type when creating adapter-instance: '. $type);
-    }
-
-    /**
-     * @return AdapterInterface
-     */
-    private function createProxyAdapter()
-    {
-        return $this->getContainer()->get('pm_service_plugin.banking.adapter_proxy');
-    }
-
-    /**
-     * @return AdapterInterface
-     */
-    private function createFinTsAdapter()
-    {
-        return $this->getContainer()->get('pm_service_plugin.banking.adapter_fints');
+        throw new InvalidArgumentException('Unknown $type when creating adapter-instance: '. $config->apiType);
     }
 }

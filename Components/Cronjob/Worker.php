@@ -27,21 +27,18 @@ final class Worker
     public function match()
     {
         $orders = $this->repository->getList([], [], 0, 1);
-        $adapter = $this->getAdapter();
+        $adapter = $this->getConfiguredAdapter();
         $collection = $adapter->fetchTransactions(new \DateTime('04.10.2018'));
 
         echo json_encode($orders) . PHP_EOL;
-
         return true;
     }
 
     /**
      * @return AdapterInterface
      */
-    private function getAdapter()
+    private function getConfiguredAdapter()
     {
-        $factory = new Factory();
-        $config = $this->getConfig();
-        return $factory($config->apiType);
+        return $this->getContainer()->get('pm_service_plugin.banking.configured_adapter');
     }
 }

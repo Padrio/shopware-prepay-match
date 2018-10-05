@@ -24,6 +24,10 @@
             <factory class="PrepayMatch\Components\Banking\Adapter\FinTs\Factory" method="create" />
         </service>
 
+        <service id="pm_service_plugin.banking.configured_adapter" class="PrepayMatch\Components\Banking\AdapterInterface">
+            <factory class="PrepayMatch\Components\Banking\Factory" method="create" />
+        </service>
+
         <service id="pm_service_plugin.fhp.fints" class="Fhp\FinTs">
             <factory class="PrepayMatch\Components\Banking\FhpFinTs\Factory" method="create" />
         </service>
