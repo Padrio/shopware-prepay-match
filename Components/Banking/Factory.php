@@ -8,17 +8,15 @@ use InvalidArgumentException;
 use PrepayMatch\Components\Banking\Adapter\Proxy as ProxyAdapter;
 use PrepayMatch\Components\Banking\Adapter\FinTs as FinTsAdapter;
 use PrepayMatch\Components\Banking\Proxy\Client;
-use PrepayMatch\Components\DI\ContainerProviderTrait;
+use PrepayMatch\Components\Config\ConfigProviderTrait;
+use PrepayMatch\Components\Config;
 
 /**
  * @author Pascal Krason <p.krason@padr.io>
  */
 final class Factory
 {
-    use ContainerProviderTrait;
-
-    const TYPE_LOCAL = 'local';
-    const TYPE_REMOTE = 'remote';
+    use ConfigProviderTrait;
 
     /**
      * @param string $type
@@ -26,11 +24,11 @@ final class Factory
      */
     public function __invoke($type)
     {
-        if($type === self::TYPE_REMOTE) {
+        if($type === Config::TYPE_REMOTE) {
             return $this->createProxyAdapter();
         }
 
-        if($type === self::TYPE_LOCAL) {
+        if($type === Config::TYPE_LOCAL) {
             return $this->createFinTsAdapter();
         }
 
@@ -51,22 +49,28 @@ final class Factory
      */
     private function createFinTsAdapter()
     {
+        $config = $this->getConfig();
         $client = $this->createFinTsClient();
         $logger = $this->getContainer()->get('pluginlogger');
-        return new FinTsAdapter($client, $logger);
+
+        $adapter = new FinTsAdapter($client, $logger);
+        $adapter->setAccountNumber($config->fintsAccountToCheck);
+        return $adapter;
     }
 
     private function createFinTsClient()
     {
-        $bag = $this->getContainer()->getParameterBag();
-        $server = $bag->get('fintsServer');
-        $port = $bag->get('fintsPort');
-        $bankCode = $bag->get('fintsBankCode');
-        $username = $bag->get('fintsUsername');
-        $pin = $bag->get('fintsPin');
-
         $logger = $this->getContainer()->get('pluginlogger');
-        return new NemiahFinTs($server, $port, $bankCode, $username, $pin, $logger);
+        $config = $this->getConfig();
+
+        return new NemiahFinTs(
+            $config->fintsServer,
+            $config->fintsPort,
+            $config->fintsBankCode,
+            $config->fintsUsername,
+            $config->fintsPin,
+            $logger
+        );
     }
 
     /**
@@ -74,13 +78,11 @@ final class Factory
      */
     private function createProxyHttpClient()
     {
-        $host = $this->getContainer()->getParameter('proxyHost');
-        $secret = $this->getContainer()->getParameter('proxySecret');
-
+        $config = $this->getConfig();
         $guzzleClient = new GuzzleClient([
-            'base_uri' => $host,
+            'base_url' => $config->proxyHost,
         ]);
 
-        return new Client($guzzleClient, $secret);
+        return new Client($guzzleClient, $config->proxySecret);
     }
 }

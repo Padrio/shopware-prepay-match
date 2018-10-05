@@ -15,6 +15,8 @@ if (file_exists('vendor/autoload.php')) {
  */
 class PrepayMatch extends Plugin
 {
+    const PLUGIN_NAME = 'PrepayMatch';
+
     /**
      * {@inheritdoc}
      */

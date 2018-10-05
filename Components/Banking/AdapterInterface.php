@@ -16,7 +16,7 @@ interface AdapterInterface
      *
      * @return StatementCollection|null
      */
-    public function fetchTransactions(DateTime $from, DateTime $to);
+    public function fetchTransactions(DateTime $from, DateTime $to = null);
 
     /**
      * @param string $accountNumber

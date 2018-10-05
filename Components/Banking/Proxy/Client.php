@@ -5,6 +5,7 @@ namespace PrepayMatch\Components\Banking\Proxy;
 use DateTime;
 use Exception;
 use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Message\ResponseInterface;
 
@@ -41,7 +42,7 @@ final class Client
         $options = $this->getOptions($query);
 
         try {
-            $response = $this->client->get('/transaction', $options);
+            $response = $this->client->get('transaction', $options);
         } catch (RequestException $e) {
             // Todo: Logging.
             return null;
@@ -95,9 +96,9 @@ final class Client
      */
     private function buildQuery(DateTime $from, DateTime $to = null)
     {
-        $params = ['from' => $from];
+        $params = ['from' => $from->format('d.m.Y')];
         if($to !== null) {
-            $params += ['to' => $to];
+            $params += ['to' => $to->format('d.m.Y')];
         }
 
         return $params;
@@ -113,7 +114,7 @@ final class Client
         return [
             'query' => $query,
             'headers' => [
-                'Authorization' => 'Bearer' . $this->token,
+                'Authorization' => 'Bearer ' . $this->token,
             ],
         ];
     }

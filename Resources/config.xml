@@ -6,7 +6,6 @@
             <name>finTsApiType</name>
             <label lang="de">API Typ</label>
             <label lang="en">API Type</label>
-            <value>local</value>
             <description lang="de">Bestimmt den API-Typ über welchen die Transaktionen vom Bankkonto geladen werden. Für die Option `Remote` wird ein spezielles PHP-Skript benötigt welches zusätzlich aufgesetzt werden muss. Mehr informationen finden Sie in der Dokumentation.</description>
             <description lang="en">Determines the API type through which the transactions are loaded from the bank account. For the option `Remote` a special PHP script is required which has to be set up additionally. More information can be found in the documentation.</description>
             <store>
@@ -91,6 +90,14 @@
             <name>fintsPin</name>
             <label lang="de">FinTs Pin/Password</label>
             <label lang="en">FinTs Pin code</label>
+        </element>
+        
+        <element required="false">
+            <name>fintsAccountToCheck</name>
+            <label lang="de">FinTs Abgerufenes-Konto</label>
+            <label lang="en">FinTs Account to check</label>
+            <description lang="de">Viele Banken bieten mehrere Bankkonto unter einem Benutzer an. Spezifizieren Sie hier von welchem Konto die Transaktionen geprüft werden sollen.</description>
+            <description lang="en">Many banks offer several bank accounts under one user. Specify the account from which the transactions are to be checked.</description>
         </element>
     </elements>
 </config>

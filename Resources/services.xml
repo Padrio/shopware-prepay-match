@@ -8,6 +8,10 @@
             <argument type="service" id="pm_service_plugin.order_repository" />
         </service>
 
+        <service id="pm_service_plugin.config" class="PrepayMatch\Components\Config">
+            <factory class="PrepayMatch\Components\Config\Factory" method="create" />
+        </service>
+
         <service id="pm_service_plugin.order_repository" class="PrepayMatch\Components\Order\Repository" />
     </services>
 

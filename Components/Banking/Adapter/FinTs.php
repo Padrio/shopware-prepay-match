@@ -46,8 +46,12 @@ final class FinTs implements AdapterInterface
     /**
      * {@inheritdoc}
      */
-    public function fetchTransactions(DateTime $from, DateTime $to)
+    public function fetchTransactions(DateTime $from, DateTime $to = null)
     {
+        if($to === null) {
+            $to = new DateTime('today 23:59:59');
+        }
+
         try {
             return $this->transaction->getStatementCollection($this->accountNumber, $from, $to);
         } catch (Exception $e) {

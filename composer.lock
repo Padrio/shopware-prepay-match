@@ -224,16 +224,16 @@
         },
         {
             "name": "padrio/banking-proxy-lib",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Padrio/banking-proxy-lib.git",
-                "reference": "30f7b0a286486eda8002c807312cdf58179c87ca"
+                "reference": "be583b7176dfecfc998820fffbed45d59fac837d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Padrio/banking-proxy-lib/zipball/30f7b0a286486eda8002c807312cdf58179c87ca",
-                "reference": "30f7b0a286486eda8002c807312cdf58179c87ca",
+                "url": "https://api.github.com/repos/Padrio/banking-proxy-lib/zipball/be583b7176dfecfc998820fffbed45d59fac837d",
+                "reference": "be583b7176dfecfc998820fffbed45d59fac837d",
                 "shasum": ""
             },
             "require": {
@@ -255,7 +255,7 @@
                 }
             ],
             "description": "Service which transfers hbci tansfers to cool models",
-            "time": "2018-10-05T00:22:42+00:00"
+            "time": "2018-10-05T11:38:44+00:00"
         },
         {
             "name": "padrio/banking-proxy-shared",

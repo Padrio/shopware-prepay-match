@@ -39,13 +39,13 @@ final class Proxy implements AdapterInterface
     /**
      * {@inheritdoc}
      */
-    public function fetchTransactions(DateTime $from, DateTime $to)
+    public function fetchTransactions(DateTime $from, DateTime $to = null)
     {
         $transactions = $this->client->getTransactions($from, $to);
         if(!$transactions) {
             return null;
         }
 
-        return StatementCollection::createFromArray($transactions);
+        return StatementCollection::createFromArray($transactions['transactions']);
     }
 }
