@@ -16,9 +16,9 @@ final class Config
     public $apiType;
 
     /**
-     * @var string
+     * @var array
      */
-    public $prepayPaymentMethod;
+    public $prepayPaymentMethods = [];
 
     /**
      * @var string
@@ -82,7 +82,7 @@ final class Config
 
     public function __construct(
         $apiType,
-        $prepayPaymentMethod,
+        $prepayPaymentMethods,
         $proxyHost,
         $proxySecret,
         $fintsServer,
@@ -97,7 +97,7 @@ final class Config
         $sendMailOnMatch
     ) {
         $this->apiType = $apiType;
-        $this->prepayPaymentMethod = $prepayPaymentMethod;
+        $this->prepayPaymentMethods = $prepayPaymentMethods;
         $this->proxyHost = $proxyHost;
         $this->proxySecret = $proxySecret;
         $this->fintsServer = $fintsServer;

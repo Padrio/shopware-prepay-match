@@ -22,7 +22,7 @@ final class Factory implements FactoryInterface
 
         return new Config(
             $config->getByNamespace(self::NAMESPACE, 'finTsApiType'),
-            $config->getByNamespace(self::NAMESPACE, 'prepayPaymentMethod'),
+            $config->getByNamespace(self::NAMESPACE, 'prepayPaymentMethods'),
             $config->getByNamespace(self::NAMESPACE, 'proxyHost'),
             $config->getByNamespace(self::NAMESPACE, 'proxySecret'),
             $config->getByNamespace(self::NAMESPACE, 'fintsServer'),

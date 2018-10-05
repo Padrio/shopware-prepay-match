@@ -28,12 +28,15 @@
         </element>
         
         <element type="combo">
-            <name>prepayPaymentMethod</name>
-            <label lang="de">Vorkasse Zahlungsart</label>
-            <label lang="en">Prepayment Payment-Method</label>
-            <description lang="de">Wählen Sie Ihre konfigurierte Zahlungsmethode für Vorkassezahlungen aus.</description>
-            <description lang="en">Select your configured payment method for prepayments.</description>
+            <name>prepayPaymentMethods</name>
+            <label lang="de">Zu prüfende Zahlungsarten</label>
+            <label lang="en">Payment types to be checked</label>
+            <description lang="de">Wählen Sie die Zahlungsarten aus bei welchen die Zahlugen geprüft werden sollen.</description>
+            <description lang="en">Select the payment methods for which you want to check the payments.</description>
             <store>Shopware.apps.Base.store.Payment</store>
+            <options>
+                <multiSelect>true</multiSelect>
+            </options>
         </element>
 
         <element type="button">

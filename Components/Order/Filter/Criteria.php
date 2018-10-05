@@ -27,7 +27,7 @@ final class Criteria
         return [
             [
                 'property' => 'payment.id',
-                'value' => $config->prepayPaymentMethod,
+                'value' => $config->prepayPaymentMethods,
             ],
         ];
     }
