@@ -3,8 +3,8 @@
 namespace PrepayMatch\Components\Cronjob;
 
 use PrepayMatch\Components\Banking\AdapterInterface;
-use PrepayMatch\Components\Banking\Factory;
 use PrepayMatch\Components\Config\ConfigProviderTrait;
+use PrepayMatch\Components\Order\Filter\Criteria;
 use PrepayMatch\Components\Order\Repository;
 
 /**
@@ -26,13 +26,20 @@ final class Worker
 
     public function match()
     {
-        $orders = $this->repository->getList([], [], 0, 1);
+        $filter = Criteria::create();
+        $orders = $this->repository->getList($filter, [], 0, 30);
+
+        if(empty($orders)) {
+            return;
+        }
+
         $adapter = $this->getConfiguredAdapter();
         $collection = $adapter->fetchTransactions(new \DateTime('04.10.2018'));
 
         echo json_encode($orders) . PHP_EOL;
-        return true;
+        return;
     }
+
 
     /**
      * @return AdapterInterface
