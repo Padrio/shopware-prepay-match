@@ -2,6 +2,95 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/shopware/5.3/engine/Shopware/Components/Plugin/schema/config.xsd">
     <elements>
+        <element type="select">
+            <name>finTsApiType</name>
+            <label lang="de">API Typ</label>
+            <label lang="en">API Type</label>
+            <value>local</value>
+            <description lang="de">Bestimmt den API-Typ über welchen die Transaktionen vom Bankkonto geladen werden. Für die Option `Remote` wird ein spezielles PHP-Skript benötigt welches zusätzlich aufgesetzt werden muss. Mehr informationen finden Sie in der Dokumentation.</description>
+            <description lang="en">Determines the API type through which the transactions are loaded from the bank account. For the option `Remote` a special PHP script is required which has to be set up additionally. More information can be found in the documentation.</description>
+            <store>
+                <option>
+                    <value>local</value>
+                    <label lang="de">Lokale FinTs Schnittstelle</label>
+                    <label lang="en">Local FinTs API</label>
+                </option>
+                <option>
+                    <value>remote</value>
+                    <label lang="de">Remote Proxy</label>
+                    <label lang="en">Remote Proxy</label>
+                </option>
+            </store>
+        </element>
+        
+        <element type="combo">
+            <name>prepayPaymentMethod</name>
+            <label lang="de">Vorkasse Zahlungsart</label>
+            <label lang="en">Prepayment Payment-Method</label>
+            <description lang="de">Wählen Sie Ihre konfigurierte Zahlungsmethode für Vorkassezahlungen aus.</description>
+            <description lang="en">Select your configured payment method for prepayments.</description>
+            <store>Shopware.apps.Base.store.Payment</store>
+        </element>
 
+        <element type="button">
+            <name>spacer-proxy</name>
+            <label>Proxy-Konfiguration</label>
+        </element>
+        
+        <element required="false">
+            <name>proxyHost</name>
+            <label lang="de">Remote Proxy Hostname</label>
+            <label lang="en">Remote proxy hostname</label>
+            <description lang="de">URL zum Proxy. (Bspw. https://fints-proxy.demoshop.de/).</description>
+            <description lang="en">Proxy-URL. (e.g. https://fints-proxy.demoshop.com/).</description>
+        </element>
+
+        <element type="password" required="false">
+            <name>proxySecret</name>
+            <label lang="de">Remote Proxy Secret</label>
+            <label lang="en">Remote Proxy Secret</label>
+            <description lang="de">Im Remote Proxy konfigurierter Sicherheitsschlüssel.</description>
+            <description lang="en">Configured remote proxy security token.</description>
+        </element>
+
+        <element type="button">
+            <name>spacer-fints</name>
+            <label>FinTs-Konfiguration</label>
+        </element>
+
+        <element required="false">
+            <name>fintsServer</name>
+            <label lang="de">FinTs Server</label>
+            <label lang="en">FinTs Server</label>
+            <description lang="de">Der passende Server für Ihr Institut kann unter folgender URL gefunden werden: https://www.hbci-zka.de/institute/institut_auswahl.htm</description>
+            <description lang="en">The suitable server for your institute can be found at the following URL: https://www.hbci-zka.de/institute/institut_auswahl.htm</description>
+        </element>
+        
+        <element type="number" required="false">
+            <name>fintsPort</name>
+            <label lang="de">FinTs Port</label>
+            <label lang="en">FinTs Port</label>
+            <value>443</value>
+            <description lang="de">Der passende Port für Ihr Institut kann unter folgender URL gefunden werden: https://www.hbci-zka.de/institute/institut_auswahl.htm</description>
+            <description lang="en">The suitable port for your institute can be found at the following URL: https://www.hbci-zka.de/institute/institut_auswahl.htm</description>
+        </element>
+        
+        <element required="false">
+            <name>fintsBankCode</name>
+            <label lang="de">FinTs Bankleitzahl</label>
+            <label lang="en">FinTs bank code</label>
+        </element>
+
+        <element required="false">
+            <name>fintsUsername</name>
+            <label lang="de">FinTs Username</label>
+            <label lang="en">FinTs Username</label>
+        </element>
+
+        <element type="password" required="false">
+            <name>fintsPin</name>
+            <label lang="de">FinTs Pin/Password</label>
+            <label lang="en">FinTs Pin code</label>
+        </element>
     </elements>
 </config>
