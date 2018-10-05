@@ -26,8 +26,25 @@ final class Criteria
 
         return [
             [
+                // Payment methods to check
+                // GER: Zu prüfende Zahlungsarten
                 'property' => 'payment.id',
+                'expression' => 'IN',
                 'value' => $config->prepayPaymentMethods,
+            ],
+            [
+                // Payment status to check
+                // GER: Zu prüfende Bestellstati
+                'property' => 'paymentStatus.id',
+                'expression' => 'IN',
+                'value' => $config->paymentIdsToCheck,
+            ],
+            [
+                // OrderStatus to check
+                // GER: Zu prüfende Bestellstati
+                'property' => 'orderStatus.id',
+                'expression' => 'IN',
+                'value' => $config->statusIdsToCheck,
             ],
         ];
     }
