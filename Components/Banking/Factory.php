@@ -2,9 +2,7 @@
 
 namespace PrepayMatch\Components\Banking;
 
-use Fhp\FinTs as NemiahFinTs;
 use InvalidArgumentException;
-use PrepayMatch\Components\Banking\Adapter\FinTs as FinTsAdapter;
 use PrepayMatch\Components\Config\ConfigProviderTrait;
 use PrepayMatch\Components\Config;
 
@@ -37,7 +35,7 @@ final class Factory
      */
     private function createProxyAdapter()
     {
-        return $this->getContainer()->get('pm_service_plug.banking.adapter_proxy');
+        return $this->getContainer()->get('pm_service_plugin.banking.adapter_proxy');
     }
 
     /**
@@ -45,27 +43,6 @@ final class Factory
      */
     private function createFinTsAdapter()
     {
-        $config = $this->getConfig();
-        $client = $this->createFinTsClient();
-        $logger = $this->getContainer()->get('pluginlogger');
-
-        $adapter = new FinTsAdapter($client, $logger);
-        $adapter->setAccountNumber($config->fintsAccountToCheck);
-        return $adapter;
-    }
-
-    private function createFinTsClient()
-    {
-        $logger = $this->getContainer()->get('pluginlogger');
-        $config = $this->getConfig();
-
-        return new NemiahFinTs(
-            $config->fintsServer,
-            $config->fintsPort,
-            $config->fintsBankCode,
-            $config->fintsUsername,
-            $config->fintsPin,
-            $logger
-        );
+        return $this->getContainer()->get('pm_service_plugin.banking.adapter_fints');
     }
 }

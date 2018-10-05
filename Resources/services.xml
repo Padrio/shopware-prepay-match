@@ -16,8 +16,16 @@
             <factory class="PrepayMatch\Components\Banking\Proxy\Client\Factory" method="create" />
         </service>
 
-        <service id="pm_service_plug.banking.adapter_proxy" class="PrepayMatch\Components\Banking\Adapter\Proxy">
+        <service id="pm_service_plugin.banking.adapter_proxy" class="PrepayMatch\Components\Banking\Adapter\Proxy">
             <factory class="PrepayMatch\Components\Banking\Adapter\Proxy\Factory" method="create" />
+        </service>
+
+        <service id="pm_service_plugin.banking.adapter_fints" class="PrepayMatch\Components\Banking\Adapter\FinTs">
+            <factory class="PrepayMatch\Components\Banking\Adapter\FinTs\Factory" method="create" />
+        </service>
+
+        <service id="pm_service_plugin.fhp.fints" class="Fhp\FinTs">
+            <factory class="PrepayMatch\Components\Banking\FhpFinTs\Factory" method="create" />
         </service>
 
         <service id="pm_service_plugin.order_repository" class="PrepayMatch\Components\Order\Repository" />
