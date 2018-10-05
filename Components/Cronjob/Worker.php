@@ -7,7 +7,7 @@ use PrepayMatch\Components\Order\Repository;
 /**
  * @author Pascal Krason <p.krason@padr.io>
  */
-class Worker
+final class Worker
 {
     /**
      * @var Repository
