@@ -5,7 +5,6 @@ namespace PrepayMatch\Components\Banking\Proxy;
 use DateTime;
 use Exception;
 use GuzzleHttp\ClientInterface;
-use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Message\ResponseInterface;
 

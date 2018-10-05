@@ -2,13 +2,14 @@
 
 namespace PrepayMatch\Components\Config;
 
+use PrepayMatch\Components\DI\FactoryInterface;
 use PrepayMatch\PrepayMatch;
 use PrepayMatch\Components\Config;
 
 /**
  * @author Pascal Krason <p.krason@padr.io>
  */
-final class Factory
+final class Factory implements FactoryInterface
 {
     const NAMESPACE = PrepayMatch::PLUGIN_NAME;
 

@@ -3,11 +3,8 @@
 namespace PrepayMatch\Components\Banking;
 
 use Fhp\FinTs as NemiahFinTs;
-use GuzzleHttp\Client as GuzzleClient;
 use InvalidArgumentException;
-use PrepayMatch\Components\Banking\Adapter\Proxy as ProxyAdapter;
 use PrepayMatch\Components\Banking\Adapter\FinTs as FinTsAdapter;
-use PrepayMatch\Components\Banking\Proxy\Client;
 use PrepayMatch\Components\Config\ConfigProviderTrait;
 use PrepayMatch\Components\Config;
 
@@ -40,8 +37,7 @@ final class Factory
      */
     private function createProxyAdapter()
     {
-        $client = $this->createProxyHttpClient();
-        return new ProxyAdapter($client);
+        return $this->getContainer()->get('pm_service_plug.banking.adapter_proxy');
     }
 
     /**
@@ -71,18 +67,5 @@ final class Factory
             $config->fintsPin,
             $logger
         );
-    }
-
-    /**
-     * @return Client
-     */
-    private function createProxyHttpClient()
-    {
-        $config = $this->getConfig();
-        $guzzleClient = new GuzzleClient([
-            'base_url' => $config->proxyHost,
-        ]);
-
-        return new Client($guzzleClient, $config->proxySecret);
     }
 }
