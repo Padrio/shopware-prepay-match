@@ -3,6 +3,7 @@
 namespace PrepayMatch\Components\Banking\Adapter;
 
 use DateTime;
+use Padrio\BankingProxy\Shared\Model\StatementCollection;
 use PrepayMatch\Components\Banking\AdapterInterface;
 use PrepayMatch\Components\Banking\Proxy\Client as ProxyClient;
 
@@ -17,6 +18,7 @@ final class Proxy implements AdapterInterface
     private $client;
 
     /**
+     * Unused. The accountNumber is known by the proxy.
      * @var string
      */
     private $accountNumber;
@@ -39,6 +41,11 @@ final class Proxy implements AdapterInterface
      */
     public function fetchTransactions(DateTime $from, DateTime $to)
     {
-        return $this->client->getTransactions($from, $to);
+        $transactions = $this->client->getTransactions($from, $to);
+        if(!$transactions) {
+            return null;
+        }
+
+        return StatementCollection::createFromArray($transactions);
     }
 }

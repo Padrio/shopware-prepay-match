@@ -23,15 +23,9 @@ final class Client
      */
     private $token;
 
-    /**
-     * @var string
-     */
-    private $host;
-
-    public function __construct(ClientInterface $client, $host, $token)
+    public function __construct(ClientInterface $client, $token)
     {
         $this->client = $client;
-        $this->host = $host;
         $this->token = $token;
     }
 
@@ -44,10 +38,10 @@ final class Client
     public function getTransactions(DateTime $from, DateTime $to = null)
     {
         $query = $this->buildQuery($from, $to);
-        $uri = $this->getUri($query);
+        $options = $this->getOptions($query);
 
         try {
-            $response = $this->client->get($uri, $this->getOptions());
+            $response = $this->client->get('/transaction', $options);
         } catch (RequestException $e) {
             // Todo: Logging.
             return null;
@@ -94,18 +88,10 @@ final class Client
     }
 
     /**
-     * @return string
-     */
-    private function getUri($query = '')
-    {
-        return sprintf('%s/transaction%s', $this->host, $query);
-    }
-
-    /**
      * @param DateTime      $from
      * @param DateTime|null $to
      *
-     * @return string
+     * @return array
      */
     private function buildQuery(DateTime $from, DateTime $to = null)
     {
@@ -114,15 +100,18 @@ final class Client
             $params += ['to' => $to];
         }
 
-        return '?' . http_build_query($params);
+        return $params;
     }
 
     /**
+     * @param array $query
+     *
      * @return array
      */
-    private function getOptions()
+    private function getOptions(array $query)
     {
         return [
+            'query' => $query,
             'headers' => [
                 'Authorization' => 'Bearer' . $this->token,
             ],

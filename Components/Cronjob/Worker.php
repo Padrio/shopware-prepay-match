@@ -2,6 +2,7 @@
 
 namespace PrepayMatch\Components\Cronjob;
 
+use PrepayMatch\Components\DI\ContainerProviderTrait;
 use PrepayMatch\Components\Order\Repository;
 
 /**
@@ -9,6 +10,8 @@ use PrepayMatch\Components\Order\Repository;
  */
 final class Worker
 {
+    use ContainerProviderTrait;
+
     /**
      * @var Repository
      */
@@ -26,4 +29,6 @@ final class Worker
 
         return true;
     }
+
+
 }

@@ -3,8 +3,8 @@
 namespace PrepayMatch\Components\Order;
 
 use DateTime;
+use PrepayMatch\Components\DI\ContainerProviderTrait;
 use Shopware\Bundle\AttributeBundle\Repository\SearchCriteria;
-use Shopware\Components\DependencyInjection\Container;
 use Shopware\Models\Order\Order;
 
 /**
@@ -12,15 +12,12 @@ use Shopware\Models\Order\Order;
  */
 final class Repository
 {
+    use ContainerProviderTrait;
+
     /**
      * @var \Shopware\Models\Order\Repository
      */
     private $repository;
-
-    /**
-     * @var Container
-     */
-    private $container;
 
     /*
      * @return \Shopware\Models\Order\Repository
@@ -32,18 +29,6 @@ final class Repository
         }
 
         return $this->repository;
-    }
-
-    /**
-     * @return Container
-     */
-    private function getContainer()
-    {
-        if(!$this->container) {
-            $this->container = Shopware()->Container();
-        }
-
-        return $this->container;
     }
 
     /**
