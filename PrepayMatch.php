@@ -2,8 +2,11 @@
 
 namespace PrepayMatch;
 
+use PrepayMatch\Bootstrap\Database;
 use PrepayMatch\Components\Cronjob\Worker;
 use Shopware\Components\Plugin;
+use Shopware\Components\Plugin\Context\InstallContext;
+use Shopware\Components\Plugin\Context\UninstallContext;
 use Shopware_Components_Cron_CronJob;
 
 if (file_exists('vendor/autoload.php')) {
@@ -15,6 +18,7 @@ if (file_exists('vendor/autoload.php')) {
  */
 class PrepayMatch extends Plugin
 {
+
     const PLUGIN_NAME = 'PrepayMatch';
 
     /**
@@ -23,8 +27,36 @@ class PrepayMatch extends Plugin
     public static function getSubscribedEvents()
     {
         return [
-            'Shopware_CronJob_PrepayMatch' => 'onCheckPrepayCronJob'
+            'Shopware_CronJob_PrepayMatch' => 'onCheckPrepayCronJob',
         ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function install(InstallContext $context)
+    {
+        $database = new Database(
+            $this->container->get('models')
+        );
+
+        $database->install();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function uninstall(UninstallContext $context)
+    {
+        $database = new Database(
+            $this->container->get('models')
+        );
+
+        if ($context->keepUserData()) {
+            return;
+        }
+
+        $database->uninstall();
     }
 
     /**
