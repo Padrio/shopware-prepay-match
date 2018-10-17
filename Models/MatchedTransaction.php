@@ -8,7 +8,7 @@ use Shopware\Components\Model\ModelEntity;
 use Shopware\Models\Order\Order;
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="PrepayMatch\Models\MatchedTransactionRepository")
  * @ORM\Table(name="s_matched_transactions")
  */
 final class MatchedTransaction extends ModelEntity
@@ -35,10 +35,32 @@ final class MatchedTransaction extends ModelEntity
     private $order;
 
     /**
+     * @ORM\Column(type="boolean")
+     * @var bool
+     */
+    private $matchedName = false;
+
+    /**
+     * @ORM\Column(type="boolean")
+     * @var bool
+     */
+    private $matchedOrderId = false;
+
+    /**
      * @ORM\Column(type="array", nullable=false)
      * @var array
+     *
+     * Todo: create separate transaction entity?
      */
     private $transaction = [];
+
+    /**
+     * @ORM\Column(type="string", unique=true)
+     * @var string
+     *
+     * Todo: create separate transaction entity?
+     */
+    private $transactionHash;
 
     /**
      * @return int
@@ -65,6 +87,38 @@ final class MatchedTransaction extends ModelEntity
     }
 
     /**
+     * @return bool
+     */
+    public function isMatchedName()
+    {
+        return $this->matchedName;
+    }
+
+    /**
+     * @param bool $matchedName
+     */
+    public function setMatchedName($matchedName)
+    {
+        $this->matchedName = $matchedName;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isMatchedOrderId()
+    {
+        return $this->matchedOrderId;
+    }
+
+    /**
+     * @param bool $matchedOrderId
+     */
+    public function setMatchedOrderId($matchedOrderId)
+    {
+        $this->matchedOrderId = $matchedOrderId;
+    }
+
+    /**
      * @param bool $asModel
      *
      * @return Transaction|array
@@ -88,5 +142,39 @@ final class MatchedTransaction extends ModelEntity
         }
 
         $this->transaction = $transaction;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTransactionHash()
+    {
+        return $this->transactionHash;
+    }
+
+    /**
+     * @param string $transactionHash
+     */
+    public function setTransactionHash($transactionHash)
+    {
+        $this->transactionHash = $transactionHash;
+    }
+
+    /**
+     * Returns whether order wos completely matched
+     * @return bool
+     */
+    public function isCompleted()
+    {
+        return $this->isMatchedName() || $this->isMatchedOrderId();
+    }
+
+    /**
+     * Return whether order is paid
+     * @return bool
+     */
+    public function isPartlyCompleted()
+    {
+        return $this->isMatchedName() || $this->isMatchedOrderId();
     }
 }

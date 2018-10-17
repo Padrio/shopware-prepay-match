@@ -27,7 +27,7 @@ class PrepayMatch extends Plugin
     public static function getSubscribedEvents()
     {
         return [
-            'Shopware_CronJob_PrepayMatch' => 'onCheckPrepayCronJob',
+            'Shopware_CronJob_PrepayMatch' => 'onPrepayMatchCronjob',
         ];
     }
 
@@ -64,7 +64,7 @@ class PrepayMatch extends Plugin
      *
      * @return bool
      */
-    public function onCheckPrepayCronJob(Shopware_Components_Cron_CronJob $job)
+    public function onPrepayMatchCronjob(Shopware_Components_Cron_CronJob $job)
     {
         return $this->getCronJobWorker()->match();
     }
@@ -74,9 +74,6 @@ class PrepayMatch extends Plugin
      */
     private function getCronJobWorker()
     {
-        /** @var Worker $worker */
-        $worker = $this->container->get('pm_service_plugin.worker');
-
-        return $worker;
+        return $this->container->get('pm_service_plugin.worker');
     }
 }
