@@ -27,7 +27,7 @@ final class Factory implements FactoryInterface
             return $container->get(self::$adapterTypeMapping[$config->apiType]);
         }
 
-        throw new InvalidArgumentException('Unknown $type when creating adapter-instance: '. $config->apiType);
+        throw new InvalidArgumentException('Unknown $type when creating adapter-instance - did you configured it? - '. $config->apiType);
     }
 
     /**
