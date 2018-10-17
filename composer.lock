@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9016ec96a7749cdb76216d1083a36197",
+    "content-hash": "2f22496b168700a9c4b56bd6b6c62b4a",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -259,16 +259,16 @@
         },
         {
             "name": "padrio/banking-proxy-shared",
-            "version": "1.1",
+            "version": "1.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Padrio/banking-proxy-shared.git",
-                "reference": "9bb1956c4d41fd249a53b4830fede8b8635ed951"
+                "reference": "107dc195948caa4de1a4b7a93ae1e616ebbdfc6b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Padrio/banking-proxy-shared/zipball/9bb1956c4d41fd249a53b4830fede8b8635ed951",
-                "reference": "9bb1956c4d41fd249a53b4830fede8b8635ed951",
+                "url": "https://api.github.com/repos/Padrio/banking-proxy-shared/zipball/107dc195948caa4de1a4b7a93ae1e616ebbdfc6b",
+                "reference": "107dc195948caa4de1a4b7a93ae1e616ebbdfc6b",
                 "shasum": ""
             },
             "require": {
@@ -288,7 +288,7 @@
                 }
             ],
             "description": "Shared files for the banking-proxy",
-            "time": "2018-10-05T02:43:49+00:00"
+            "time": "2018-10-07T15:08:54+00:00"
         },
         {
             "name": "psr/http-message",
