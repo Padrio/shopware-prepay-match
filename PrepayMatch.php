@@ -9,8 +9,8 @@ use Shopware\Components\Plugin\Context\InstallContext;
 use Shopware\Components\Plugin\Context\UninstallContext;
 use Shopware_Components_Cron_CronJob;
 
-if (file_exists('vendor/autoload.php')) {
-    require_once 'vendor/autoload.php';
+if (file_exists(__DIR__ . 'vendor/autoload.php')) {
+    require_once __DIR__ . 'vendor/autoload.php';
 }
 
 /**

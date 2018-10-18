@@ -38,7 +38,13 @@ class MatchedTransaction extends ModelEntity
      * @ORM\Column(type="boolean")
      * @var bool
      */
-    private $matchedName = false;
+    private $matchedFirstName;
+
+    /**
+     * @ORM\Column(type="boolean")
+     * @var bool
+     */
+    private $matchedLastName;
 
     /**
      * @ORM\Column(type="boolean")
@@ -89,17 +95,33 @@ class MatchedTransaction extends ModelEntity
     /**
      * @return bool
      */
-    public function isMatchedName()
+    public function isMatchedFirstName()
     {
-        return $this->matchedName;
+        return $this->matchedFirstName;
     }
 
     /**
-     * @param bool $matchedName
+     * @param bool $matchedFirstName
      */
-    public function setMatchedName($matchedName)
+    public function setMatchedFirstName($matchedFirstName)
     {
-        $this->matchedName = $matchedName;
+        $this->matchedFirstName = $matchedFirstName;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isMatchedLastName()
+    {
+        return $this->matchedLastName;
+    }
+
+    /**
+     * @param bool $matchedLastName
+     */
+    public function setMatchedLastName($matchedLastName)
+    {
+        $this->matchedLastName = $matchedLastName;
     }
 
     /**
@@ -175,6 +197,6 @@ class MatchedTransaction extends ModelEntity
      */
     public function isPartlyCompleted()
     {
-        return $this->isMatchedName() || $this->isMatchedOrderId();
+        return ($this->isMatchedFirstName() || $this->isMatchedLastName()) || $this->isMatchedOrderId();
     }
 }

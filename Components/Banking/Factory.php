@@ -23,8 +23,8 @@ final class Factory implements FactoryInterface
     {
         $config = self::getConfig();
         $container = Shopware()->Container();
-        if(isset(self::$adapterTypeMapping[$config->apiType])) {
-            return $container->get(self::$adapterTypeMapping[$config->apiType]);
+        if(isset(self::$adapterTypeMapping[$config->finTsApiType])) {
+            return $container->get(self::$adapterTypeMapping[$config->finTsApiType]);
         }
 
         throw new InvalidArgumentException('Unknown $type when creating adapter-instance - did you configured it? - '. $config->apiType);
