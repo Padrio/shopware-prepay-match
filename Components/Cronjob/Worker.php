@@ -8,8 +8,8 @@ use PrepayMatch\Components\Banking\AdapterInterface;
 use PrepayMatch\Components\Config\ConfigProviderTrait;
 use PrepayMatch\Components\Database\DoctrineProviderTrait;
 use PrepayMatch\Components\Order\Filter\Criteria;
-use PrepayMatch\Components\Order\Filter\Sorting;
 use PrepayMatch\Components\Order\Repository;
+use PrepayMatch\Components\Order\Sorting;
 use PrepayMatch\Models\MatchedTransaction;
 use Shopware\Models\Order\Order;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace PrepayMatch\Components\Order\Filter;
+namespace PrepayMatch\Components\Order;
 
 /**
  * @author Pascal Krason <p.krason@padr.io>
