@@ -3,7 +3,7 @@
 namespace PrepayMatch\Components\Cronjob;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Padrio\BankingProxy\Shared\Model\Transaction;
+use Padrio\BankingProxy\Model\Transaction;
 use PrepayMatch\Components\Banking\AdapterInterface;
 use PrepayMatch\Components\Config\ConfigProviderTrait;
 use PrepayMatch\Components\Database\DoctrineProviderTrait;

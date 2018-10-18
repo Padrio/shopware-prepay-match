@@ -3,7 +3,7 @@
 namespace PrepayMatch\Models;
 
 use Doctrine\ORM\Mapping as ORM;
-use Padrio\BankingProxy\Shared\Model\Transaction;
+use Padrio\BankingProxy\Model\Transaction;
 use Shopware\Components\Model\ModelEntity;
 use Shopware\Models\Order\Order;
 

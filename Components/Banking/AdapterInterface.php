@@ -3,7 +3,7 @@
 namespace PrepayMatch\Components\Banking;
 
 use DateTime;
-use Padrio\BankingProxy\Shared\Model\StatementCollection;
+use Padrio\BankingProxy\Model\StatementCollection;
 
 /**
  * @author Pascal Krason <p.krason@padr.io>
