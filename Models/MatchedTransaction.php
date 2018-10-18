@@ -11,7 +11,7 @@ use Shopware\Models\Order\Order;
  * @ORM\Entity(repositoryClass="PrepayMatch\Models\MatchedTransactionRepository")
  * @ORM\Table(name="s_matched_transactions")
  */
-final class MatchedTransaction extends ModelEntity
+class MatchedTransaction extends ModelEntity
 {
     /**
      * @ORM\Id()
