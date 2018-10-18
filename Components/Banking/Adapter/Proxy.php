@@ -3,7 +3,7 @@
 namespace PrepayMatch\Components\Banking\Adapter;
 
 use DateTime;
-use Padrio\BankingProxy\Shared\Model\StatementCollection;
+use Padrio\BankingProxy\Model\StatementCollection;
 use PrepayMatch\Components\Banking\AdapterInterface;
 use PrepayMatch\Components\Banking\Proxy\Client as ProxyClient;
 
